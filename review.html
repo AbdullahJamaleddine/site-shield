@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Leave a review — Drips &amp; Drops</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="icon" href="/images/logo_icon_black.png" />
+<style>
+  .review-wrap { max-width: 640px; margin: 40px auto; padding: 0 20px; }
+  .review-card-form { background:#fff; border-radius: 20px; padding: 30px; box-shadow: var(--shadow-sm); }
+  .rating-group { padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .rating-group:last-of-type { border-bottom: 0; }
+  .rating-group__label { font-family: var(--font-display); font-weight:700; font-size: 15px; margin-bottom: 4px; }
+  .rating-group__hint { color: var(--muted); font-size: 12.5px; margin-bottom: 12px; }
+  .stars-row { display:flex; gap: 6px; }
+  .star-btn { background:transparent; padding:0; cursor:pointer; width: 42px; height: 42px; display:inline-flex; align-items:center; justify-content:center; border:1.5px solid var(--line); border-radius: 10px; transition: background .15s ease, border-color .15s ease, transform .15s ease; color: var(--muted); }
+  .star-btn:hover { transform: scale(1.06); border-color: var(--ink); }
+  .star-btn.filled { background: #F5B301; border-color: #F5B301; color: #fff; }
+  .star-btn svg { width: 22px; height: 22px; fill: currentColor; }
+  .review-state { text-align:center; padding: 24px 6px; }
+  .review-state h2 { margin-bottom: 8px; }
+  .review-state p { color: var(--muted); font-size: 14.5px; }
+</style>
+</head>
+<body>
+
+<section class="review-wrap">
+  <div class="review-card-form" id="reviewRoot">
+    <div class="empty-state"><span class="spinner"></span> Loading…</div>
+  </div>
+</section>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="/js/firebase.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/ui.js"></script>
+<script>
+const STAR_SVG = '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>';
+
+function starsInput(value, onchange) {
+  const row = document.createElement('div');
+  row.className = 'stars-row';
+  for (let i = 1; i <= 5; i++) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'star-btn'; b.dataset.i = i; b.innerHTML = STAR_SVG;
+    row.appendChild(b);
+  }
+  function paint(v) { row.querySelectorAll('.star-btn').forEach(b => b.classList.toggle('filled', Number(b.dataset.i) <= v)); }
+  row.addEventListener('click', e => { const b = e.target.closest('.star-btn'); if (!b) return; const v = Number(b.dataset.i); onchange(v); paint(v); });
+  row.addEventListener('mouseover', e => { const b = e.target.closest('.star-btn'); if (b) paint(Number(b.dataset.i)); });
+  row.addEventListener('mouseleave', () => paint(value.v));
+  paint(value.v);
+  return row;
+}
+
+(async () => {
+  const params = new URLSearchParams(location.search);
+  const token = params.get('t') || params.get('token') || params.get('link') || params.get('id');
+  const root = document.getElementById('reviewRoot');
+  const { db } = await initFirebase();
+
+  const state = (title, msg) => {
+    root.innerHTML = `<div class="review-state"><h2>${title}</h2><p>${msg}</p>
+      <a href="/shop" class="btn btn--solid" style="margin-top:18px;display:inline-flex;">Back to shop</a></div>`;
+  };
+
+  // ---- Single-use link validation ----
+  let linkDoc = null, context = { productId: null, productName: '', orderId: null, email: '', customerName: '' };
+  if (!token) { state('Review link required', 'Please open the review link we sent you.'); return; }
+
+  try {
+    // Links are stored with a random `token` field (doc id is auto-generated).
+    let snap = await db.collection('reviewLinks').where('token', '==', token).limit(1).get();
+    if (snap.empty) {
+      // Legacy links used the document id directly.
+      const byId = await db.collection('reviewLinks').doc(token).get().catch(() => null);
+      if (byId && byId.exists) linkDoc = byId;
+    } else {
+      linkDoc = snap.docs[0];
+    }
+  } catch (e) { console.error(e); }
+
+  if (!linkDoc) { state('Invalid review link', 'This link is not recognised. Ask us for a fresh one.'); return; }
+
+  const data = linkDoc.data() || {};
+  if (data.usedAt || data.used === true) {
+    state('This link has already been used', 'Each review link works once only. Thanks for your review!');
+    return;
+  }
+  context = { ...context, ...data };
+
+  root.innerHTML = `
+    <h2 style="margin-bottom:6px;">Leave a review</h2>
+    <p style="color:var(--muted);font-size:14px;margin:0 0 6px;">${context.productName ? `For <b>${context.productName}</b>` : 'Tell us about your experience.'}</p>
+
+    <div class="rating-group">
+      <div class="rating-group__label">Overall experience <span style="color:var(--accent);">*</span></div>
+      <div class="rating-group__hint">Required</div>
+      <div id="starsOverall"></div>
+    </div>
+    <div class="rating-group">
+      <div class="rating-group__label">Product quality</div>
+      <div class="rating-group__hint">Optional</div>
+      <div id="starsProduct"></div>
+    </div>
+    <div class="rating-group">
+      <div class="rating-group__label">Delivery</div>
+      <div class="rating-group__hint">Optional</div>
+      <div id="starsDelivery"></div>
+    </div>
+
+    <div class="field"><label>Your name</label><input type="text" id="rName" value="${(context.customerName || '').replace(/"/g, '&quot;')}" placeholder="First name" /></div>
+    <div class="field"><label>Email</label><input type="email" id="rEmail" value="${context.email || ''}" placeholder="you@email.com" /></div>
+    <div class="field"><label>Your review</label><textarea id="rText" rows="4" placeholder="How was it?"></textarea></div>
+
+    <button class="btn btn--solid btn--block mt-4" id="submitReview">Submit review</button>
+    <div id="afterMsg" style="text-align:center;margin-top:14px;font-size:13px;color:var(--muted);"></div>
+  `;
+
+  const v = { overall: 0, product: 0, delivery: 0 };
+  const overallState = { v: 0 }, prodState = { v: 0 }, delState = { v: 0 };
+  document.getElementById('starsOverall').appendChild(starsInput(overallState, n => { v.overall = n; overallState.v = n; }));
+  document.getElementById('starsProduct').appendChild(starsInput(prodState, n => { v.product = n; prodState.v = n; }));
+  document.getElementById('starsDelivery').appendChild(starsInput(delState, n => { v.delivery = n; delState.v = n; }));
+
+  document.getElementById('submitReview').addEventListener('click', async () => {
+    if (!v.overall) return showToast('Please give an overall rating', 'error');
+    const name = document.getElementById('rName').value.trim();
+    const email = document.getElementById('rEmail').value.trim();
+    const text = document.getElementById('rText').value.trim();
+    if (!name || !email) return showToast('Name and email required', 'error');
+
+    const btn = document.getElementById('submitReview');
+    btn.disabled = true; btn.textContent = 'Submitting…';
+    try {
+      // Burn the link first so a double submit can never create two reviews.
+      await db.collection('reviewLinks').doc(linkDoc.id).update({
+        used: true, usedAt: new Date().toISOString(),
+      });
+      await db.collection('reviews').add({
+        name, email, text, rating: v.overall,
+        overallRating: v.overall, productRating: v.product || null, deliveryRating: v.delivery || null,
+        productId: context.productId || null, productName: context.productName || '',
+        orderId: context.orderId || context.orderRef || null,
+        approved: true, featured: false,
+        linkId: linkDoc.id,
+        createdAt: new Date().toISOString(),
+      });
+      state('Thanks for the review', 'It has been sent to the team. This link is now closed.');
+    } catch (e) {
+      console.error(e);
+      btn.disabled = false; btn.textContent = 'Submit review';
+      showToast('Could not submit review', 'error');
+    }
+  });
+})();
+</script>
+</body>
+</html>

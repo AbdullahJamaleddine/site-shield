@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Products — Admin — Drips & Drops</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="admin-sidebar" id="adminSidebarSlot"></aside>
+  <main class="admin-main">
+    <div class="admin-header">
+      <h1>Products</h1>
+    </div>
+
+    <div class="admin-toolbar">
+      <input type="search" id="productSearch" placeholder="Search products…" />
+      <button class="btn btn--solid" id="addProductBtn">+ Add product</button>
+    </div>
+    <table class="admin-table">
+      <thead><tr><th>Product</th><th>Price</th><th>Category</th><th>Stock</th><th>Options</th><th>Views</th><th></th></tr></thead>
+      <tbody id="productsTableBody"><tr><td colspan="7">Loading…</td></tr></tbody>
+    </table>
+
+<div class="form-panel" id="productFormPanel">
+  <div class="form-panel__head">
+    <h3 id="formTitle">Add product</h3>
+    <button id="closeFormBtn">&times;</button>
+  </div>
+  <form id="productForm">
+    <div class="field"><label>Name</label><input type="text" id="productName" required /></div>
+    <div class="field-row">
+      <div class="field"><label>Selling price (₦)</label><input type="number" id="productPrice" min="0" required /></div>
+      <div class="field"><label>Stock</label><input type="number" id="productStock" min="0" required /></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Cost price (₦)</label><input type="number" id="productCostPrice" min="0" placeholder="What you paid" /></div>
+      <div class="field"><label>Compare-at price (₦)</label><input type="number" id="productOriginalPrice" min="0" placeholder="Optional — shows slashed" /></div>
+    </div>
+    <p class="field-hint">Cost price powers profit analytics (never shown to customers). Set compare-at above the selling price to run a discount — the storefront slashes it automatically.</p>
+    <div class="field"><label>Category</label><input type="text" id="productCategory" placeholder="e.g. joggers" /></div>
+    <div class="field">
+      <label>Sizes</label>
+      <div class="variant-builder" id="sizeBuilder"></div>
+      <button type="button" class="mini-btn" id="addSizeBtn">+ Add size</button>
+    </div>
+    <div class="field">
+      <label>Colors</label>
+      <div class="variant-builder" id="colorBuilder"></div>
+      <button type="button" class="mini-btn" id="addColorBtn">+ Add color</button>
+    </div>
+    <div class="field"><label>Description</label><textarea id="productDescription" rows="3"></textarea></div>
+    <div class="field">
+      <label>Images</label>
+      <div class="upload-zone" id="uploadZone">Click or drop images to upload</div>
+      <input type="file" id="fileInput" accept="image/*" multiple hidden />
+      <div class="image-previews" id="imagePreviews"></div>
+    </div>
+    <button type="submit" class="btn btn--solid btn--block" id="saveProductBtn">Save product</button>
+  </form>
+</div>
+
+  </main>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="/js/firebase.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/admin/js/admin-auth.js"></script>
+<script src="/admin/js/admin-shell.js"></script>
+<script src="/admin/js/products.js"></script>
+</body>
+</html>

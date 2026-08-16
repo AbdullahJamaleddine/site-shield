@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Drips &amp; Drops — Premium Streetwear</title>
+<meta name="description" content="Elevated basics for the days you want to keep it simple. Shop tees, joggers, shorts and combos from Drips & Drops." />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="icon" href="/images/logo_icon_black.png" />
+</head>
+<body>
+
+<!-- Hero slider -->
+<header class="hero" id="hero">
+  <div class="hero__slides" id="heroSlides">
+    <div class="hero__slide active"><img src="/images/hero_section_1.jpg" alt="" /></div>
+    <div class="hero__slide"><img src="/images/hero_section_2.jpg" alt="" /></div>
+    <div class="hero__slide"><img src="/images/hero_section_3.jpg" alt="" /></div>
+  </div>
+  <div class="hero__grain"></div>
+  <div class="wrap hero__content">
+    <h1 class="hero__title" id="heroTitle">Shop the <span class="outline">summer</span>.</h1>
+    <p class="hero__sub" id="heroSub">Breathable pieces built for the sunniest days.</p>
+    <div class="hero__actions">
+      <a href="/shop" class="btn btn--white btn--lg">Shop the drop</a>
+      <a href="#arrivals" class="btn btn--outline-light btn--lg">New arrivals</a>
+    </div>
+  </div>
+  <div class="hero__indicators" id="heroIndicators"></div>
+</header>
+
+<!-- New Arrivals -->
+<section class="section" id="arrivals">
+  <div class="wrap">
+    <div class="section__head">
+      <div>
+        <span class="eyebrow">Just landed</span>
+        <h2>New arrivals</h2>
+      </div>
+      <a href="/shop" class="section__link">See all →</a>
+    </div>
+    <div class="hscroll-wrap">
+      <div class="hscroll" id="arrivalsGrid"><div class="empty-state">Loading…</div></div>
+      <div class="hscroll-nav">
+        <button id="arrivalsPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+        <button id="arrivalsNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured -->
+<section class="section" id="featured-section" style="display:none;">
+  <div class="wrap">
+    <div class="section__head">
+      <div>
+        <span class="eyebrow">Curated picks</span>
+        <h2>Featured</h2>
+      </div>
+      <a href="/shop" class="section__link">Browse all →</a>
+    </div>
+    <div class="hscroll-wrap">
+      <div class="hscroll" id="featuredGrid"></div>
+      <div class="hscroll-nav">
+        <button id="featuredPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+        <button id="featuredNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Summer feature band -->
+<section class="section--tight">
+  <div class="wrap">
+    <div class="feature-band">
+      <img src="/images/summer_section.jpg" alt="" />
+      <div class="feature-band__content">
+        <span class="eyebrow">Summer is live</span>
+        <h2>Built for the heat.</h2>
+        <p>Breathable pieces in soft, easy fits. Limited runs per size — once they're gone, they're gone.</p>
+        <a href="/shop?category=summer" class="btn btn--white btn--lg mt-2">Shop summer →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lookbook preview -->
+<section class="section">
+  <div class="wrap">
+    <div class="section__head">
+      <div>
+        <span class="eyebrow">Behind the fit</span>
+        <h2>The lookbook</h2>
+      </div>
+      <a href="/lookbook" class="section__link">Open lookbook →</a>
+    </div>
+    <div class="lookbook" id="lookbookGrid"></div>
+  </div>
+</section>
+
+<!-- Combos -->
+<section class="section" id="combos-section" style="display:none;">
+  <div class="wrap">
+    <div class="section__head">
+      <div>
+        <span class="eyebrow">Bundle &amp; save</span>
+        <h2>Combos</h2>
+      </div>
+      <a href="/shop" class="section__link">All combos →</a>
+    </div>
+    <div class="hscroll" id="combosGrid"></div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="section section--dark" id="reviews-section" style="display:none;">
+  <div class="wrap">
+    <div class="section__head">
+      <div>
+        <span class="eyebrow" style="color:#fff;">Real talk</span>
+        <h2>What people are saying</h2>
+      </div>
+    </div>
+    <div class="hscroll" id="reviewsGrid"></div>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="section">
+  <div class="wrap">
+    <div class="newsletter-box">
+      <div>
+        <span class="eyebrow">Join the list</span>
+        <h2>Be first to the next drop.</h2>
+        <p>Early access, restocks, and members-only deals. No spam, we promise.</p>
+      </div>
+      <form id="newsletterForm" class="newsletter-form" novalidate>
+        <input type="email" id="newsletterEmail" placeholder="you@email.com" required />
+        <button type="submit" class="btn">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="/js/firebase.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/js/home.js"></script>
+</body>
+</html>

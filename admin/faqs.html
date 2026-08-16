@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FAQs — Admin — Drips &amp; Drops</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="admin-sidebar" id="adminSidebarSlot"></aside>
+  <main class="admin-main">
+    <div class="admin-header">
+      <h1>FAQs</h1>
+      <button class="btn btn--solid" id="newFaqBtn"><i data-lucide="plus"></i> Add question</button>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-card__label">Total questions</div><div class="stat-card__value" id="fqTotal">—</div></div>
+      <div class="stat-card"><div class="stat-card__label">Published</div><div class="stat-card__value" id="fqLive">—</div></div>
+      <div class="stat-card"><div class="stat-card__label">Hidden</div><div class="stat-card__value" id="fqHidden">—</div></div>
+    </div>
+
+    <p class="admin-note">These show on the customer <a href="/reviews#faqs" target="_blank" rel="noopener">Reviews &amp; FAQs</a> page. Lower order numbers appear first.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Question</th><th>Category</th><th>Order</th><th>Status</th><th>Actions</th></tr>
+      </thead>
+      <tbody id="faqBody">
+        <tr><td colspan="5">Loading…</td></tr>
+      </tbody>
+    </table>
+
+    <div class="form-panel" id="faqFormPanel">
+      <div class="form-panel__head">
+        <h3 id="fqFormTitle">Add question</h3>
+        <button id="closeFaqForm">&times;</button>
+      </div>
+      <form id="faqForm">
+        <div class="field"><label>Question</label><input type="text" id="fqQuestion" required placeholder="How long does delivery take?" /></div>
+        <div class="field"><label>Answer</label><textarea id="fqAnswer" rows="6" required placeholder="Type the full answer customers should see."></textarea></div>
+        <div class="field-row">
+          <div class="field"><label>Category</label><input type="text" id="fqCategory" placeholder="e.g. Delivery" value="General" /></div>
+          <div class="field"><label>Order</label><input type="number" id="fqOrder" min="0" step="1" value="0" /></div>
+        </div>
+        <div class="field">
+          <label>Published</label>
+          <select id="fqActive"><option value="true">Yes — visible to customers</option><option value="false">No — hidden</option></select>
+        </div>
+        <button type="submit" class="btn btn--solid btn--block" id="saveFaqBtn">Save question</button>
+      </form>
+    </div>
+  </main>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="/js/firebase.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/admin/js/admin-auth.js"></script>
+<script src="/admin/js/admin-shell.js"></script>
+<script src="/admin/js/faqs.js"></script>
+</body>
+</html>

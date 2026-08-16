@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reviews — Admin — Drips & Drops</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="admin-sidebar" id="adminSidebarSlot"></aside>
+  <main class="admin-main">
+    <div class="admin-header"><h1>Reviews</h1></div>
+
+    <div class="stat-card" style="margin-bottom:24px;">
+      <div class="stat-card__label">Generate a review link</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr auto; gap:10px; margin-top:12px;">
+        <div class="field" style="margin:0;"><input type="text" id="genName" placeholder="Customer name (optional)" /></div>
+        <div class="field" style="margin:0;"><input type="text" id="genOrder" placeholder="Order ref (optional)" /></div>
+        <button class="btn btn--solid" id="genLinkBtn">Generate link</button>
+      </div>
+      <div class="stat-card__sub" style="margin-top:8px;">A unique review URL is created and copied to your clipboard. Send it to the customer.</div>
+    </div>
+
+    <div class="section__head" style="border:none; padding-bottom:0;">
+      <h2 style="font-size:16px;">Review links (<span id="rlCount">0</span>)</h2>
+    </div>
+    <table class="admin-table" style="margin-bottom:32px;">
+      <thead><tr><th>Customer</th><th>Order</th><th>Status</th><th>Created</th><th></th></tr></thead>
+      <tbody id="linksTableBody"><tr><td colspan="5">Loading…</td></tr></tbody>
+    </table>
+
+    <div class="admin-toolbar">
+      <div style="font-family:var(--font-mono); font-size:11px; color:var(--fg-muted);"><span id="rvCount">0</span> reviews · Avg <span id="rvAvg">0</span> ★</div>
+      <div style="font-family:var(--font-mono); font-size:11px; color:var(--fg-muted);">Toggle “Show on homepage” to choose the reviews shown on the storefront. Nothing picked = latest reviews show.</div>
+    </div>
+    <table class="admin-table">
+      <thead><tr><th>Product</th><th>Rating</th><th>Review</th><th>Author</th><th>Date</th><th>Homepage</th><th></th></tr></thead>
+      <tbody id="rvTableBody"><tr><td colspan="7">Loading…</td></tr></tbody>
+    </table>
+  </main>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="/js/firebase.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/admin/js/admin-auth.js"></script>
+<script src="/admin/js/admin-shell.js"></script>
+<script src="/admin/js/reviews.js"></script>
+</body>
+</html>

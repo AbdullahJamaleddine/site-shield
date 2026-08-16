@@ -1,0 +1,88 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Products: public read, and allow checkout to update stock after payment.
+    match /products/{productId} {
+      allow read: if true;
+      allow update: if true;
+      allow create, delete: if request.auth != null;
+    }
+    // Orders: anyone can create at checkout; only admin can read/update.
+    match /orders/{orderId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+    // Customer upsert on checkout.
+    match /customers/{id} {
+      allow create, update: if true;
+      allow read, delete: if request.auth != null;
+    }
+    // Newsletter — anyone can subscribe; admin reads.
+    match /newsletter/{id} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+    // Client-side event logs.
+    match /logs/{id} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+    // Reviews — public read (for displaying on site), open create, admin manage.
+    match /reviews/{id} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if request.auth != null;
+    }
+    // Review links — public read (to validate token) and update (mark used); admin creates/deletes.
+    match /reviewLinks/{id} {
+      allow read: if true;
+      allow update: if true;
+      allow create, delete: if request.auth != null;
+    }
+    // Coupons — public read (to validate code at checkout) and update (append usage);
+    // admin creates/deletes.
+    match /coupons/{id} {
+      allow read: if true;
+      allow update: if true;
+      allow create, delete: if request.auth != null;
+    }
+    // Combos — public read, admin write.
+    match /combos/{id} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    // Featured — public read, admin write.
+    match /featured/{id} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    // Analytics counters — public increments (page views, newsletter subs).
+    match /analytics/{id} {
+      allow read, create, update: if true;
+      allow delete: if request.auth != null;
+    }
+    // FAQs — public read, admin write.
+    match /faqs/{id} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    // Brand events (calendar) — public read, admin write.
+    match /events/{id} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    // Lookbook images — public read, admin write.
+    match /lookbook/{id} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    // Email sign-in codes — server-side only (Firebase Admin SDK bypasses rules).
+    match /authCodes/{id} {
+      allow read, write: if false;
+    }
+    // Fallback (emailLogs, admins, etc.) — admin only.
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}

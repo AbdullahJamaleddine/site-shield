@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Activity Logs — Admin — Drips & Drops</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="admin-sidebar" id="adminSidebarSlot"></aside>
+  <main class="admin-main">
+    <div class="admin-header">
+      <h1>Activity Logs</h1>
+    </div>
+
+    <div class="admin-toolbar">
+      <select id="lgEventFilter">
+        <option value="">All events</option>
+      </select>
+      <div style="font-family:var(--font-mono); font-size:11px; color:var(--fg-muted);"><span id="lgCount">0</span> events</div>
+    </div>
+    <table class="admin-table">
+      <thead><tr><th>Date</th><th>Event</th><th>Path</th><th>Data</th><th>Referrer</th></tr></thead>
+      <tbody id="lgTableBody"><tr><td colspan="5">Loading…</td></tr></tbody>
+    </table>
+
+  </main>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="/js/firebase.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/admin/js/admin-auth.js"></script>
+<script src="/admin/js/admin-shell.js"></script>
+<script src="/admin/js/logs.js"></script>
+</body>
+</html>

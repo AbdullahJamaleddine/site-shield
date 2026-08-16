@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard — Admin — Drips & Drops</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="admin-sidebar" id="adminSidebarSlot"></aside>
+  <main class="admin-main">
+    <div class="admin-header">
+      <h1>Dashboard</h1>
+    </div>
+
+    <div class="stat-grid" id="statGrid">
+      <div class="stat-card"><div class="stat-card__label">Total Revenue</div><div class="stat-card__value" id="statRevenue">—</div><div class="stat-card__sub" id="statRevenueSub"></div></div>
+      <div class="stat-card"><div class="stat-card__label">Orders</div><div class="stat-card__value" id="statOrders">—</div><div class="stat-card__sub" id="statOrdersSub"></div></div>
+      <div class="stat-card"><div class="stat-card__label">Products</div><div class="stat-card__value" id="statProducts">—</div><div class="stat-card__sub" id="statProductsSub"></div></div>
+      <div class="stat-card"><div class="stat-card__label">Customers</div><div class="stat-card__value" id="statCustomers">—</div><div class="stat-card__sub" id="statCustomersSub"></div></div>
+      <div class="stat-card"><div class="stat-card__label">Newsletter</div><div class="stat-card__value" id="statNewsletter">—</div><div class="stat-card__sub">Subscribers</div></div>
+      <div class="stat-card"><div class="stat-card__label">Reviews</div><div class="stat-card__value" id="statReviews">—</div><div class="stat-card__sub" id="statReviewsSub"></div></div>
+      <div class="stat-card"><div class="stat-card__label">Low Stock</div><div class="stat-card__value" id="statLowStock">—</div><div class="stat-card__sub">Products under 5</div></div>
+      <div class="stat-card"><div class="stat-card__label">Avg Order Value</div><div class="stat-card__value" id="statAOV">—</div><div class="stat-card__sub">Across all paid orders</div></div>
+    </div>
+
+    <div class="section__head" style="border:none; padding-bottom:0;">
+      <h2 style="font-size:16px;">Revenue — last 14 days</h2>
+    </div>
+    <div class="stat-card" style="margin-bottom:32px;">
+      <div class="bar-chart" id="revChart"></div>
+      <div class="chart-labels" id="revChartLabels"></div>
+    </div>
+
+    <div class="section__head" style="border:none; padding-bottom:0;">
+      <h2 style="font-size:16px;">Recent Orders</h2>
+      <a href="/admin/orders" class="section__link">View all →</a>
+    </div>
+    <table class="admin-table">
+      <thead><tr><th>Reference</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th></tr></thead>
+      <tbody id="recentOrders"><tr><td colspan="6">Loading…</td></tr></tbody>
+    </table>
+
+  </main>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="/js/firebase.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/admin/js/admin-auth.js"></script>
+<script src="/admin/js/admin-shell.js"></script>
+<script src="/admin/js/dashboard.js"></script>
+</body>
+</html>

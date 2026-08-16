@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Analytics — Admin — Drips &amp; Drops</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="admin-sidebar" id="adminSidebarSlot"></aside>
+  <main class="admin-main">
+    <div class="admin-header">
+      <h1>Analytics</h1>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <select id="rangeSel" class="cs-sm" aria-label="Date range">
+          <option value="7">Last 7 days</option>
+          <option value="30" selected>Last 30 days</option>
+          <option value="90">Last 90 days</option>
+          <option value="365">Last 12 months</option>
+          <option value="0">All time</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="admin-section-head"><h2 id="ovTitle">Overview</h2></div>
+    <div class="kpi-grid" id="kpiOverview"></div>
+
+    <div class="admin-section-head"><h2>Revenue — selected range</h2></div>
+    <div class="stat-card" style="margin-bottom:14px;">
+      <div class="bar-chart" id="revChart"></div>
+      <div class="chart-labels" id="revChartLabels"></div>
+    </div>
+
+    <div class="admin-section-head"><h2>Traffic — selected range</h2></div>
+    <div class="stat-card" style="margin-bottom:32px;">
+      <div class="bar-chart" id="pvChart"></div>
+      <div class="chart-labels" id="pvChartLabels"></div>
+    </div>
+
+    <div class="admin-section-head"><h2>Financials — all time</h2></div>
+    <div class="an-split">
+      <div class="an-panel">
+        <h3>Money in</h3>
+        <div id="finIn"></div>
+      </div>
+      <div class="an-panel">
+        <h3>Money out &amp; profit</h3>
+        <div id="finOut"></div>
+      </div>
+    </div>
+
+    <div class="an-split">
+      <div class="an-panel">
+        <h3>Inventory</h3>
+        <div id="invPanel"></div>
+      </div>
+      <div class="an-panel">
+        <h3>Customers</h3>
+        <div id="custPanel"></div>
+      </div>
+    </div>
+
+    <div class="an-split">
+      <div class="an-panel">
+        <h3>Top products by revenue</h3>
+        <div class="an-list" id="topRevenue"></div>
+      </div>
+      <div class="an-panel">
+        <h3>Top products by units sold</h3>
+        <div class="an-list" id="topUnits"></div>
+      </div>
+    </div>
+
+    <div class="an-split">
+      <div class="an-panel">
+        <h3>Sales by category</h3>
+        <div class="an-list" id="byCategory"></div>
+      </div>
+      <div class="an-panel">
+        <h3>Sales by state</h3>
+        <div class="an-list" id="byState"></div>
+      </div>
+    </div>
+
+    <div class="an-split">
+      <div class="an-panel">
+        <h3>Top customers by spend</h3>
+        <div class="an-list" id="topCustomers"></div>
+      </div>
+      <div class="an-panel">
+        <h3>Sizes &amp; colours sold</h3>
+        <div class="an-list" id="bySizeColor"></div>
+      </div>
+    </div>
+
+    <div class="an-split">
+      <div class="an-panel">
+        <h3>Most viewed pages</h3>
+        <div class="an-list" id="topPages"></div>
+      </div>
+      <div class="an-panel">
+        <h3>Devices &amp; referrers</h3>
+        <div class="an-list" id="trafficMix"></div>
+      </div>
+    </div>
+
+    <div class="an-split">
+      <div class="an-panel">
+        <h3>Order status breakdown</h3>
+        <div class="an-list" id="statusBreakdown"></div>
+      </div>
+      <div class="an-panel">
+        <h3>Busiest days &amp; hours</h3>
+        <div class="an-list" id="busiest"></div>
+      </div>
+    </div>
+
+    <div class="an-split">
+      <div class="an-panel">
+        <h3>Coupons</h3>
+        <div class="an-list" id="couponPanel"></div>
+      </div>
+      <div class="an-panel">
+        <h3>Low stock &amp; product views</h3>
+        <div class="an-list" id="stockPanel"></div>
+      </div>
+    </div>
+
+    <div class="admin-section-head"><h2>Expenses</h2></div>
+    <table class="admin-table" style="margin-bottom:40px;">
+      <thead><tr><th>Category</th><th>Entries</th><th>Total</th></tr></thead>
+      <tbody id="expenseBody"><tr><td colspan="3">Loading…</td></tr></tbody>
+    </table>
+
+  </main>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="/js/firebase.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/admin/js/admin-auth.js"></script>
+<script src="/admin/js/admin-shell.js"></script>
+<script src="/admin/js/analytics.js"></script>
+</body>
+</html>

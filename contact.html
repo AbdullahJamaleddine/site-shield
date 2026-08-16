@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — Drips &amp; Drops</title>
+<meta name="description" content="Get in touch with Drips & Drops. WhatsApp, email, or drop us a note." />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="icon" href="/images/logo_icon_white.png" />
+</head>
+<body>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section__head">
+      <div>
+        <span class="eyebrow">Say hi</span>
+        <h2>Get in touch</h2>
+      </div>
+    </div>
+
+    <div class="contact-grid">
+      <form id="contactForm" class="checkout-card" novalidate>
+        <h3>Send us a message</h3>
+        <div class="field"><label for="cName">Your name</label><input type="text" id="cName" required /></div>
+        <div class="field"><label for="cEmail">Email</label><input type="email" id="cEmail" required /></div>
+        <div class="field"><label for="cSubject">Subject</label><input type="text" id="cSubject" /></div>
+        <div class="field"><label for="cMessage">Message</label><textarea id="cMessage" rows="5" required></textarea></div>
+        <button type="submit" class="btn btn--solid btn--block mt-4">Send message</button>
+      </form>
+
+      <div class="stack">
+        <div class="info-card">
+          <div class="info-card__item"><span class="icon"><i data-lucide="mail"></i></span><div><b>Email</b><br /><a href="mailto:dripsanddrops.shop@gmail.com">dripsanddrops.shop@gmail.com</a></div></div>
+          <div class="info-card__item"><span class="icon"><i data-lucide="phone"></i></span><div><b>Phone / WhatsApp</b><br /><a href="https://wa.me/2347075826790" target="_blank" rel="noopener">+234 707 582 6790</a></div></div>
+          <div class="info-card__item"><span class="icon"><i data-lucide="instagram"></i></span><div><b>Instagram</b><br /><a href="https://instagram.com/dripsanddrops" target="_blank" rel="noopener">@dripsanddrops</a></div></div>
+          <a href="https://wa.me/2347075826790" target="_blank" rel="noopener" class="btn btn--solid btn--block mt-2">Chat on WhatsApp</a>
+        </div>
+
+        <div class="info-card">
+          <h3 style="margin-bottom:6px;">FAQ</h3>
+          <div class="faq"><div class="faq__q">How long does delivery take?</div><div class="faq__a"><p>Within Ibadan we offer same-day delivery, provided every item on your order is in stock at the time you check out. For interstate orders, the timeline depends on your location — most deliveries land within 2–5 business days.</p></div></div>
+          <div class="faq"><div class="faq__q">Do you ship internationally?</div><div class="faq__a"><p>Yes, we ship worldwide. Message us on WhatsApp with your location and we'll confirm the shipping cost and timeline before you order.</p></div></div>
+          <div class="faq"><div class="faq__q">What's the return policy?</div><div class="faq__a"><p>Unworn items can be exchanged within 7 days of delivery, with tags still attached. Sale items are final.</p></div></div>
+          <div class="faq"><div class="faq__q">Where are you located?</div><div class="faq__a"><p>We're based in Ibadan, Oyo State. Pickup is available on request — just message us on WhatsApp to arrange a time.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="/js/firebase.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/ui.js"></script>
+<script>
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const name = document.getElementById('cName').value.trim();
+  const email = document.getElementById('cEmail').value.trim();
+  const subject = document.getElementById('cSubject').value.trim();
+  const message = document.getElementById('cMessage').value.trim();
+  if (!name || !email || !message) return showToast('Please fill in your name, email and message', 'error');
+  try {
+    const { db } = await initFirebase();
+    await db.collection('contacts').add({ name, email, subject, message, createdAt: new Date().toISOString(), read: false });
+    e.target.reset();
+    showToast('Message sent — we\'ll get back to you soon');
+  } catch (err) { showToast('Failed to send. Try WhatsApp instead.', 'error'); }
+});
+</script>
+</body>
+</html>
