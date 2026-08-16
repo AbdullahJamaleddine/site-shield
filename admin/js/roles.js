@@ -199,7 +199,7 @@ function renderRoles() {
       <td><b>${esc(r.title)}</b><div style="font-size:12px;opacity:.6;">${esc(r.category || '')}${r.location ? ' · ' + esc(r.location) : ''}</div></td>
       <td>${(r.fields || []).length}</td>
       <td>${count}</td>
-      <td><span class="pill ${r.status === 'closed' ? 'pill--off' : 'pill--on'}">${r.status === 'closed' ? 'Closed' : 'Open'}</span></td>
+      <td><span class="status-pill ${r.status === 'closed' ? 'status-pill--pending' : 'status-pill--paid'}">${r.status === 'closed' ? 'Closed' : 'Open'}</span></td>
       <td>
         <button class="btn btn--sm" data-edit="${r.id}">Edit</button>
         <button class="btn btn--sm btn--danger" data-del="${r.id}">Delete</button>

@@ -30,6 +30,8 @@
     { href: '/admin/reviews', label: 'Reviews', icon: 'message-square' },
     { href: '/admin/faqs', label: 'FAQs', icon: 'help-circle' },
     { href: '/admin/email-logs', label: 'Email logs', icon: 'send' },
+    { href: '/admin/roles', label: 'Roles', icon: 'user-plus' },
+    { href: '/admin/lock', label: 'Website lock', icon: 'lock' },
     { href: '/admin/logs', label: 'Activity logs', icon: 'activity' },
   ];
 
