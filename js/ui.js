@@ -86,6 +86,7 @@ const NAV_LINKS = [
   { href: '/calendar', label: 'Calendar' },
   { href: '/lookbook', label: 'Lookbook' },
   { href: '/reviews', label: 'Reviews' },
+  { href: '/roles', label: 'Roles' },
   { href: '/contact', label: 'Contact' },
 ];
 
@@ -369,3 +370,31 @@ document.addEventListener('DOMContentLoaded', () => {
     window.logEvent('pageview', { title: document.title });
   }
 });
+
+
+// ---------------------------------------------------------------------------
+// Product-card image rotation.
+// One global ticker drives EVERY card on the page, so all products with more
+// than one photo change at exactly the same moment.
+// ---------------------------------------------------------------------------
+(function cardSlideshow() {
+  var INTERVAL = 3000;
+  var step = 0;
+  function tick() {
+    step++;
+    document.querySelectorAll('.card__media.has-slides').forEach(function (media) {
+      var imgs = media.querySelectorAll('.card__img');
+      if (imgs.length < 2) return;
+      var idx = step % imgs.length;
+      imgs.forEach(function (img, i) { img.classList.toggle('is-active', i === idx); });
+    });
+  }
+  function start() {
+    if (window.__ddCardTimer) return;
+    window.__ddCardTimer = setInterval(function () {
+      if (document.visibilityState === 'visible') tick();
+    }, INTERVAL);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();

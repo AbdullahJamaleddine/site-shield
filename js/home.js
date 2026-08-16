@@ -77,7 +77,15 @@ window.renderProductCard = function (p) {
   const original = Number(p.originalPrice || 0);
   const hasSale = original > price && price > 0;
   const hasOpts = !soldOut && ((p.sizes && p.sizes.length) || (Array.isArray(p.colors) && p.colors.length));
-  const img = cldOpt((p.images && p.images[0]) || p.image || '/images/placeholder.svg', 500);
+  const gallery = (Array.isArray(p.images) ? p.images : []).filter(Boolean);
+  if (!gallery.length && p.image) gallery.push(p.image);
+  if (!gallery.length) gallery.push('/images/placeholder.svg');
+  const img = cldOpt(gallery[0], 500);
+  // Products with more than one photo cycle through them. Every card on the
+  // page advances on the SAME global tick (see js/ui.js) so they stay in sync.
+  const mediaImgs = gallery.slice(0, 6).map((src, i) =>
+    `<img src="${cldOpt(src, 500)}" alt="${p.name}" loading="${i === 0 ? 'eager' : 'lazy'}" class="card__img${i === 0 ? ' is-active' : ''}" data-slide="${i}" />`
+  ).join('');
   const wishData = encodeURIComponent(JSON.stringify({ id: p.id, name: p.name, price, image: (p.images && p.images[0]) || p.image }));
   const productData = encodeURIComponent(JSON.stringify({ id: p.id, name: p.name, price, image: (p.images && p.images[0]) || p.image, sizes: p.sizes || [], colors: p.colors || [] }));
   // Show the exact count for every product; badge only flags sold out / low.
@@ -90,8 +98,8 @@ window.renderProductCard = function (p) {
   const stockLabel = soldOut ? 'Sold out' : `${stockCount} left`;
   return `
     <div class="card ${soldOut ? 'is-sold' : ''}">
-      <a href="/product?id=${p.id}" class="card__media" aria-label="${p.name}">
-        <img src="${img}" alt="${p.name}" loading="lazy" />
+      <a href="/product?id=${p.id}" class="card__media${gallery.length > 1 ? ' has-slides' : ''}" aria-label="${p.name}" data-slides="${gallery.length > 1 ? Math.min(gallery.length, 6) : 1}">
+        ${mediaImgs}
         <div class="card__badges">
           ${!soldOut && isNew ? '<span class="badge-pill badge-pill--new">New</span>' : ''}
           ${hasSale ? '<span class="badge-pill badge-pill--sale">Sale</span>' : ''}

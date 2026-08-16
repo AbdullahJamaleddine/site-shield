@@ -76,6 +76,22 @@ service cloud.firestore {
       allow read: if true;
       allow write: if request.auth != null;
     }
+    // Site lock settings — public read (the storefront lock reads it live),
+    // admin write. The password itself is NEVER stored here.
+    match /settings/{id} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    // Roles / casting calls — public read, admin write.
+    match /roles/{id} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    // Role applications — anyone can apply; only admin reads/manages.
+    match /roleApplications/{id} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
     // Email sign-in codes — server-side only (Firebase Admin SDK bypasses rules).
     match /authCodes/{id} {
       allow read, write: if false;
