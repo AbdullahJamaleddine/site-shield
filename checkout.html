@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Checkout — Drips &amp; Drops</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="icon" href="/images/logo_icon_black.png" />
+<script src="/js/site-lock.js"></script>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="section__head" style="margin: 32px 0 16px;">
+    <div>
+      <span class="eyebrow">Almost there</span>
+      <h2>Checkout</h2>
+    </div>
+  </div>
+
+  <div class="checkout-page" id="checkoutPage">
+    <form id="checkoutForm" novalidate>
+      <h3 style="margin-bottom:16px;">Delivery details</h3>
+      <div class="field-row">
+        <div class="field"><label>Full name</label><input type="text" id="cName" required /></div>
+        <div class="field"><label>Phone number</label><input type="tel" id="cPhone" required /></div>
+      </div>
+      <div class="field"><label>Email</label><input type="email" id="cEmail" required /></div>
+      <div class="field"><label>Delivery address</label><textarea id="cAddress" rows="2" required></textarea></div>
+      <div class="field-row">
+        <div class="field"><label>City</label><input type="text" id="cCity" required /></div>
+        <div class="field"><label>State</label><input type="text" id="cState" required /></div>
+      </div>
+    </form>
+
+    <div class="cart-summary">
+      <div class="eyebrow" style="margin-bottom:14px;">Order summary</div>
+      <div class="checkout-items" id="checkoutItems"></div>
+
+      <div class="coupon-row">
+        <input type="text" id="couponCode" placeholder="Coupon code" autocomplete="off" />
+        <button type="button" class="btn" id="applyCouponBtn">Apply</button>
+      </div>
+      <div class="coupon-msg" id="couponMsg"></div>
+
+      <div class="summary-line"><span>Subtotal</span><span id="sumSubtotal">₦0</span></div>
+      <div class="summary-line" id="sumDiscountLine" style="display:none;"><span id="sumDiscountLabel">Discount</span><span id="sumDiscount">₦0</span></div>
+      <div class="summary-line"><span>Paystack fee</span><span id="sumFee">₦0</span></div>
+      <div class="summary-line total"><span>Total</span><span id="sumTotal">₦0</span></div>
+
+      <button type="button" class="btn btn--solid btn--block btn--lg mt-4" id="payBtn">Pay now</button>
+      <div class="fee-note text-center">Delivery fee confirmed after order</div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="successModal">
+  <div class="modal-box text-center">
+    <div style="font-size:44px;margin-bottom:8px;">🎉</div>
+    <h3>Order confirmed</h3>
+    <p>Thanks for shopping. We've received your payment and will confirm your delivery shortly.</p>
+    <p>Reference: <b id="successRef"></b></p>
+    <a href="/" class="btn btn--solid btn--block mt-4">Back to home</a>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="/js/firebase.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/js/checkout.js"></script>
+</body>
+</html>

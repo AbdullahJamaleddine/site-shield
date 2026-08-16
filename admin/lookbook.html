@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lookbook — Admin — Drips &amp; Drops</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="admin-sidebar" id="adminSidebarSlot"></aside>
+  <main class="admin-main">
+    <div class="admin-header"><h1>Lookbook</h1></div>
+
+    <div class="stat-card" style="margin-bottom:24px;">
+      <div class="stat-card__label">Upload new lookbook images</div>
+      <div class="upload-zone" id="lbUploadZone" style="margin-top:12px;">Click or drop images to upload</div>
+      <input type="file" id="lbFileInput" accept="image/*" multiple hidden />
+      <div class="stat-card__sub" style="margin-top:8px;">Images appear on the storefront lookbook page immediately.</div>
+    </div>
+
+    <div class="section__head" style="border:none; padding-bottom:0;">
+      <h2 style="font-size:16px;"><span id="lbCount">0</span> images</h2>
+    </div>
+
+    <div class="lb-grid" id="lbGrid"></div>
+  </main>
+</div>
+
+<style>
+.lb-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.lb-item { position: relative; aspect-ratio: 3/4; overflow: hidden; border-radius: 10px; background: var(--bg-elevated); border: 1px solid var(--border); }
+.lb-item img { width: 100%; height: 100%; object-fit: cover; }
+.lb-item .lb-del {
+  position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.65); color: #fff;
+  width: 30px; height: 30px; border: 0; border-radius: 999px; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.lb-item .lb-del:hover { background: #d64545; }
+@media (max-width: 780px) { .lb-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="/js/firebase.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/admin/js/admin-auth.js"></script>
+<script src="/admin/js/admin-shell.js"></script>
+<script src="/admin/js/lookbook.js"></script>
+</body>
+</html>

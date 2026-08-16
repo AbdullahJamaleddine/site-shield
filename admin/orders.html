@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Orders — Admin — Drips & Drops</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="admin-sidebar" id="adminSidebarSlot"></aside>
+  <main class="admin-main">
+    <div class="admin-header">
+      <h1>Orders</h1>
+    </div>
+
+    <div class="admin-toolbar">
+      <input type="search" id="orderSearch" placeholder="Search by reference, name, email…" />
+      <select id="orderStatusFilter">
+        <option value="">All statuses</option>
+        <option value="processing">Processing</option>
+        <option value="paid">Paid</option>
+        <option value="shipped">Shipped</option>
+        <option value="delivered">Delivered</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+      <button class="btn btn--solid" id="logOrderBtn" style="padding:10px 18px;">+ Log order</button>
+    </div>
+    <table class="admin-table">
+      <thead><tr><th>Reference</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th></tr></thead>
+      <tbody id="ordersTableBody"><tr><td colspan="6">Loading…</td></tr></tbody>
+    </table>
+
+<div class="form-panel" id="orderDetailPanel">
+  <div class="form-panel__head">
+    <h3 id="orderDetailTitle">Order detail</h3>
+    <button id="closeOrderBtn">&times;</button>
+  </div>
+  <div id="orderDetailBody"></div>
+</div>
+
+<div class="form-panel" id="manualOrderPanel">
+  <div class="form-panel__head">
+    <h3>Log a manual order</h3>
+    <button id="closeManualBtn">&times;</button>
+  </div>
+  <div class="manual-order">
+    <p class="manual-hint">For orders paid directly (transfer, cash, DM). Pick the items, add the customer's details, and save.</p>
+
+    <h4 class="manual-sec">Items</h4>
+    <input type="search" id="manualProductSearch" placeholder="Search products to add…" class="manual-search" />
+    <div id="manualProductList" class="manual-picker"></div>
+
+    <h4 class="manual-sec">Selected</h4>
+    <div id="manualSelected" class="manual-selected"></div>
+    <div class="summary-line total"><span>Order total</span><span id="manualTotal">₦0</span></div>
+
+    <h4 class="manual-sec">Customer</h4>
+    <div class="field"><label>Full name</label><input type="text" id="mName" /></div>
+    <div class="field-row">
+      <div class="field"><label>Phone</label><input type="tel" id="mPhone" /></div>
+      <div class="field"><label>Email (optional)</label><input type="email" id="mEmail" /></div>
+    </div>
+    <div class="field"><label>Delivery address</label><textarea id="mAddress" rows="2"></textarea></div>
+    <div class="field-row">
+      <div class="field"><label>City</label><input type="text" id="mCity" /></div>
+      <div class="field"><label>State</label><input type="text" id="mState" /></div>
+    </div>
+    <div class="field">
+      <label>Status</label>
+      <select id="mStatus">
+        <option value="paid">Paid</option>
+        <option value="shipped">Shipped</option>
+        <option value="delivered">Delivered</option>
+      </select>
+    </div>
+    <label style="display:flex; gap:8px; align-items:center; font-family:var(--font-mono); font-size:12px; color:var(--fg-muted); margin-bottom:16px;">
+      <input type="checkbox" id="mReduceStock" checked style="width:auto;" /> Reduce product stock
+    </label>
+    <button class="btn btn--solid btn--block" id="saveManualBtn">Save order</button>
+  </div>
+</div>
+
+  </main>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="/js/firebase.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/admin/js/admin-auth.js"></script>
+<script src="/admin/js/admin-shell.js"></script>
+<script src="/admin/js/orders.js"></script>
+</body>
+</html>

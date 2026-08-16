@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Events Calendar — Drips &amp; Drops</title>
+<meta name="description" content="Every Drips & Drops drop, pop-up and pre-order date — with live countdowns and one-tap add to your calendar." />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="icon" href="/images/logo_icon_black.png" />
+<script src="/js/site-lock.js"></script>
+</head>
+<body>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section__head">
+      <div>
+        <span class="eyebrow">Save the date</span>
+        <h2>Events calendar</h2>
+        <p class="section__sub">Drops, pop-ups and restocks. Add any one straight to your phone's calendar.</p>
+      </div>
+    </div>
+
+    <div class="cal-list" id="calList">
+      <div class="empty-state"><span class="spinner"></span> Loading events…</div>
+    </div>
+
+    <div id="calPastWrap" style="display:none;">
+      <div class="section__head" style="margin-top:44px;">
+        <div><span class="eyebrow">Archive</span><h2 style="font-size:22px;">Past events</h2></div>
+      </div>
+      <div class="cal-list cal-list--past" id="calPast"></div>
+    </div>
+  </div>
+</section>
+
+<div class="event-modal" id="eventModal">
+  <div class="event-modal__panel" id="eventModalPanel"></div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="/js/firebase.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/js/calendar.js"></script>
+</body>
+</html>

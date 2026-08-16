@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coupons — Admin — Drips & Drops</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="admin-sidebar" id="adminSidebarSlot"></aside>
+  <main class="admin-main">
+    <div class="admin-header"><h1>Coupons</h1></div>
+
+    <div class="admin-toolbar">
+      <div style="font-family:var(--font-mono); font-size:11px; color:var(--fg-muted);"><span id="cpCount">0</span> coupons</div>
+      <button class="btn btn--solid" id="addCpBtn">+ Add coupon</button>
+    </div>
+    <table class="admin-table">
+      <thead><tr><th>Code</th><th>Type</th><th>Value</th><th>Scope</th><th>Uses</th><th>Expires</th><th>Active</th><th></th></tr></thead>
+      <tbody id="cpTableBody"><tr><td colspan="8">Loading…</td></tr></tbody>
+    </table>
+
+    <div class="form-panel" id="cpFormPanel">
+      <div class="form-panel__head">
+        <h3 id="cpFormTitle">Add coupon</h3>
+        <button id="closeCpBtn">&times;</button>
+      </div>
+      <form id="cpForm">
+        <div class="field"><label>Code (auto uppercase)</label><input type="text" id="fCode" style="text-transform:uppercase;" required /></div>
+        <div class="field-row">
+          <div class="field"><label>Type</label>
+            <select id="fType">
+              <option value="fixed">Fixed amount (₦)</option>
+              <option value="percent">Percentage (%)</option>
+            </select>
+          </div>
+          <div class="field"><label>Value</label><input type="number" id="fValue" min="0" step="1" required /></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Max uses (0 = unlimited)</label><input type="number" id="fMax" min="0" /></div>
+          <div class="field"><label>Min order amount (₦)</label><input type="number" id="fMin" min="0" /></div>
+        </div>
+        <div class="field"><label>Expires on (optional)</label><input type="date" id="fExpiry" /></div>
+        <div class="field">
+          <label>Applies to</label>
+          <div style="display:flex; gap:18px; margin-bottom:8px;">
+            <label style="display:flex; gap:6px; align-items:center; text-transform:none; letter-spacing:0; font-family:var(--font-body); font-size:13px; color:var(--fg);">
+              <input type="radio" name="fScope" value="all" checked style="width:auto;" /> All products
+            </label>
+            <label style="display:flex; gap:6px; align-items:center; text-transform:none; letter-spacing:0; font-family:var(--font-body); font-size:13px; color:var(--fg);">
+              <input type="radio" name="fScope" value="some" style="width:auto;" /> Specific products
+            </label>
+          </div>
+          <div class="check-list" id="fProdList" style="display:none;"></div>
+        </div>
+        <label style="display:flex; gap:8px; align-items:center; font-family:var(--font-mono); font-size:12px; color:var(--fg-muted); margin-bottom:16px;">
+          <input type="checkbox" id="fActive" checked style="width:auto;" /> Active
+        </label>
+        <button type="submit" class="btn btn--solid btn--block">Save coupon</button>
+      </form>
+    </div>
+  </main>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="/js/firebase.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/admin/js/admin-auth.js"></script>
+<script src="/admin/js/admin-shell.js"></script>
+<script src="/admin/js/coupons.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reviews &amp; FAQs — Drips &amp; Drops</title>
+<meta name="description" content="Real customer reviews of Drips & Drops plus answers to the questions we get asked most — sizing, delivery, returns and payments." />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="icon" href="/images/logo_icon_black.png" />
+<script src="/js/site-lock.js"></script>
+</head>
+<body>
+
+<section class="section rf-hero">
+  <div class="wrap">
+    <span class="eyebrow">Straight from the people wearing it</span>
+    <h1>Reviews &amp; FAQs</h1>
+    <p>Every review below comes from a real order. Scroll the questions if you need sizing, delivery or payment answers before you check out.</p>
+    <div class="rf-tabs" role="tablist">
+      <button class="rf-tab active" data-tab="reviews" role="tab">Reviews</button>
+      <button class="rf-tab" data-tab="faqs" role="tab">FAQs</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:22px;">
+  <div class="wrap">
+
+    <div class="rf-panel" id="panelReviews">
+      <div class="rf-summary" id="rvSummary">
+        <div class="rf-score">
+          <div class="rf-score__num" id="rvAvg">—</div>
+          <div class="rf-score__stars" id="rvAvgStars">☆☆☆☆☆</div>
+          <div class="rf-score__count" id="rvCount">Loading reviews…</div>
+        </div>
+        <div class="rf-bars" id="rvBars"></div>
+      </div>
+
+      <div class="rf-filterbar" id="rvFilters"></div>
+      <div class="rf-grid" id="rvGrid">
+        <div class="empty-state"><span class="spinner"></span> Loading reviews…</div>
+      </div>
+    </div>
+
+    <div class="rf-panel" id="panelFaqs" hidden>
+      <div class="rf-catbar" id="faqCats"></div>
+      <div class="rf-faqs" id="faqList">
+        <div class="empty-state"><span class="spinner"></span> Loading questions…</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="/js/firebase.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/js/reviews-faq.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Calendar — Admin — Drips &amp; Drops</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="admin-sidebar" id="adminSidebarSlot"></aside>
+  <main class="admin-main">
+    <div class="admin-header">
+      <h1>Calendar</h1>
+      <button class="btn btn--solid" id="newEventBtn"><i data-lucide="plus"></i> Add event</button>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-card__label">Total events</div><div class="stat-card__value" id="evTotal">—</div></div>
+      <div class="stat-card"><div class="stat-card__label">Upcoming</div><div class="stat-card__value" id="evUpcoming">—</div></div>
+      <div class="stat-card"><div class="stat-card__label">Ended</div><div class="stat-card__value" id="evPast">—</div></div>
+      <div class="stat-card"><div class="stat-card__label">Hidden</div><div class="stat-card__value" id="evHidden">—</div></div>
+    </div>
+
+    <div class="admin-section-head"><h2>Upcoming</h2></div>
+    <div class="cal-admin-grid" id="eventsUpcoming">
+      <div class="admin-empty">Loading…</div>
+    </div>
+
+    <div class="admin-section-head"><h2>Archive</h2></div>
+    <div class="cal-admin-grid" id="eventsPast">
+      <div class="admin-empty">Loading…</div>
+    </div>
+
+    <div class="form-panel" id="eventFormPanel">
+      <div class="form-panel__head">
+        <h3 id="evFormTitle">Add event</h3>
+        <button id="closeEventForm">&times;</button>
+      </div>
+      <form id="eventForm">
+        <div class="field"><label>Event name</label><input type="text" id="evName" required /></div>
+        <div class="field-row">
+          <div class="field"><label>Date</label><input type="date" id="evDate" required /></div>
+          <div class="field"><label>Start time</label><input type="time" id="evTime" value="12:00" required /></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Duration (hours)</label><input type="number" id="evDuration" min="1" step="1" value="2" /></div>
+          <div class="field"><label>Location (optional)</label><input type="text" id="evLocation" placeholder="e.g. Online / store address" /></div>
+        </div>
+        <div class="field"><label>Description</label><textarea id="evDescription" rows="4"></textarea></div>
+        <div class="field">
+          <label>Cover image</label>
+          <div class="upload-zone" id="evUploadZone">Click or drop an image to upload</div>
+          <input type="file" id="evFileInput" accept="image/*" hidden />
+          <div class="image-previews" id="evPreview"></div>
+        </div>
+        <div class="field">
+          <label>Visible on storefront</label>
+          <select id="evActive"><option value="true">Yes</option><option value="false">No (hidden)</option></select>
+        </div>
+        <button type="submit" class="btn btn--solid btn--block" id="saveEventBtn">Save event</button>
+      </form>
+    </div>
+  </main>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="/js/firebase.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/admin/js/admin-auth.js"></script>
+<script src="/admin/js/admin-shell.js"></script>
+<script src="/admin/js/calendar.js"></script>
+</body>
+</html>

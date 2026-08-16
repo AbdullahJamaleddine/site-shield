@@ -1,0 +1,38 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/cart.html", "destination": "/", "permanent": true },
+    { "source": "/cart", "destination": "/", "permanent": true },
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/shop.html", "destination": "/shop", "permanent": true },
+    { "source": "/product.html", "destination": "/product", "permanent": true },
+    { "source": "/checkout.html", "destination": "/checkout", "permanent": true },
+    { "source": "/contact.html", "destination": "/contact", "permanent": true },
+    { "source": "/admin/login.html", "destination": "/admin/login", "permanent": true },
+    { "source": "/admin/index.html", "destination": "/admin", "permanent": true },
+    { "source": "/admin/products.html", "destination": "/admin/products", "permanent": true },
+    { "source": "/admin/orders.html", "destination": "/admin/orders", "permanent": true },
+    { "source": "/admin/customers.html", "destination": "/admin/customers", "permanent": true },
+    { "source": "/admin/newsletter.html", "destination": "/admin/newsletter", "permanent": true },
+    { "source": "/admin/reviews.html", "destination": "/admin/reviews", "permanent": true },
+    { "source": "/admin/analytics.html", "destination": "/admin/analytics", "permanent": true },
+    { "source": "/admin/coupons.html", "destination": "/admin/coupons", "permanent": true },
+    { "source": "/admin/combos.html", "destination": "/admin/combos", "permanent": true },
+    { "source": "/admin/email-logs.html", "destination": "/admin/email-logs", "permanent": true },
+    { "source": "/admin/email-logs.html", "destination": "/admin/email-logs", "permanent": true },
+    { "source": "/admin/logs.html", "destination": "/admin/logs", "permanent": true },
+    { "source": "/admin/featured.html", "destination": "/admin/featured", "permanent": true },
+    { "source": "/review.html", "destination": "/review", "permanent": true },
+    { "source": "/account.html", "destination": "/account", "permanent": true },
+    { "source": "/lookbook.html", "destination": "/lookbook", "permanent": true },
+    { "source": "/calendar.html", "destination": "/calendar", "permanent": true },
+    { "source": "/admin/lookbook.html", "destination": "/admin/lookbook", "permanent": true },
+    { "source": "/admin/calendar.html", "destination": "/admin/calendar", "permanent": true },
+    { "source": "/admin/faqs.html", "destination": "/admin/faqs", "permanent": true },
+    { "source": "/reviews.html", "destination": "/reviews", "permanent": true }
+  ],
+  "functions": {
+    "api/**/*.js": { "maxDuration": 10 }
+  }
+}

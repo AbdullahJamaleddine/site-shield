@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Work with us — Drips &amp; Drops</title>
+<meta name="description" content="Open roles at Drips & Drops — models, photographers, designers and creatives. Apply in a couple of minutes." />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="icon" href="/images/logo_icon_white.png" />
+<script src="/js/site-lock.js"></script>
+</head>
+<body>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section__head">
+      <div>
+        <span class="eyebrow">Work with us</span>
+        <h2>Open roles</h2>
+      </div>
+    </div>
+
+    <p class="roles-intro">
+      We're always looking for faces and creatives to build the next drop with. Pick a role below and
+      tell us about yourself — it takes a couple of minutes.
+    </p>
+
+    <div id="rolesList" class="roles-list">
+      <div class="empty-state">Loading roles…</div>
+    </div>
+  </div>
+</section>
+
+<!-- Application drawer -->
+<div class="role-backdrop" id="roleBackdrop"></div>
+<aside class="role-panel" id="rolePanel" aria-label="Apply">
+  <div class="role-panel__head">
+    <div>
+      <span class="eyebrow" id="apRoleKicker">Apply</span>
+      <h3 id="apRoleTitle">Role</h3>
+    </div>
+    <button class="role-panel__close" id="apClose" aria-label="Close">&times;</button>
+  </div>
+  <form id="applyForm" class="role-panel__body" novalidate>
+    <div id="apFields"></div>
+    <p class="ap-note" id="apNote"></p>
+    <button type="submit" class="btn btn--solid btn--block" id="apSubmit">Submit application</button>
+  </form>
+  <div class="role-panel__done" id="apDone">
+    <h3>Application sent</h3>
+    <p>Thanks — we've got everything. If it's a fit, we'll reach out by email.</p>
+    <button class="btn btn--solid" id="apDoneClose">Close</button>
+  </div>
+</aside>
+
+<style>
+.roles-intro { max-width: 62ch; color: var(--muted, #666); line-height: 1.7; margin-bottom: 26px; }
+.roles-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+.role-card { border: 1px solid var(--line, #e5e2dc); border-radius: 16px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+.role-card__media { aspect-ratio: 16/10; background: var(--sand, #f2efe9); overflow: hidden; }
+.role-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.role-card__body { padding: 18px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.role-card__title { font-family: var(--font-display); font-weight: 800; font-size: 19px; line-height: 1.2; }
+.role-card__meta { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted, #777); }
+.role-card__desc { font-size: 14px; line-height: 1.6; color: var(--muted, #666); }
+.role-card__foot { margin-top: auto; display: flex; align-items: center; gap: 10px; }
+.role-chip { font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: var(--ink, #141414); color: #fff; }
+.role-chip--closed { background: #999; }
+
+.role-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.5); opacity: 0; pointer-events: none; transition: opacity .25s ease; z-index: 900; }
+.role-backdrop.open { opacity: 1; pointer-events: auto; }
+.role-panel { position: fixed; top: 0; right: 0; height: 100%; width: min(520px, 100%); background: #fff; z-index: 901;
+  transform: translateX(102%); transition: transform .3s cubic-bezier(.4,0,.2,1); display: flex; flex-direction: column; }
+.role-panel.open { transform: translateX(0); }
+.role-panel__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 20px 22px; border-bottom: 1px solid var(--line, #e5e2dc); }
+.role-panel__head h3 { font-family: var(--font-display); font-size: 20px; margin-top: 4px; }
+.role-panel__close { background: none; border: 0; font-size: 26px; line-height: 1; cursor: pointer; }
+.role-panel__body { padding: 20px 22px 40px; overflow-y: auto; flex: 1; }
+.role-panel__done { display: none; padding: 40px 22px; text-align: center; }
+.role-panel__done h3 { font-family: var(--font-display); font-size: 22px; margin-bottom: 10px; }
+.role-panel__done p { color: var(--muted,#666); margin-bottom: 20px; line-height: 1.6; }
+.role-panel.is-done .role-panel__body { display: none; }
+.role-panel.is-done .role-panel__done { display: block; }
+.ap-hint { font-size: 12px; color: var(--muted, #777); margin: -6px 0 10px; }
+.ap-note { font-size: 13px; min-height: 18px; margin: 6px 0 12px; }
+.ap-note.err { color: #c0392b; } .ap-note.ok { color: #1e8449; }
+.ap-check { display: flex; align-items: center; gap: 10px; font-size: 14px; margin-bottom: 14px; }
+.ap-drop { border: 1px dashed var(--line, #ccc); border-radius: 12px; padding: 18px; text-align: center; font-size: 13px; cursor: pointer; color: var(--muted,#777); }
+.ap-drop.dragover { border-color: var(--ink,#141414); color: var(--ink,#141414); }
+.ap-thumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.ap-thumb { position: relative; width: 76px; height: 96px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line,#e5e2dc); }
+.ap-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.ap-thumb button { position: absolute; top: 3px; right: 3px; width: 20px; height: 20px; border: 0; border-radius: 50%; background: rgba(0,0,0,.65); color: #fff; cursor: pointer; line-height: 1; }
+.req { color: #c0392b; }
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="/js/firebase.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/js/roles-apply.js"></script>
+</body>
+</html>
